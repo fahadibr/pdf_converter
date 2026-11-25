@@ -1,0 +1,22 @@
+:root {
+  color-scheme: light dark;
+  --ink: #172033;
+  --muted: #788399;
+  --blue: #2563eb;
+  --blue-dark: #1d4ed8;
+  --line: #e7ebf2;
+  --surface: #ffffff;
+  --background: #f8fafc;
+  --shadow: 0 22px 70px rgba(39, 65, 115, .11), 0 3px 12px rgba(39, 65, 115, .05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e7ecf5;
+    --muted: #a5afc1;
+    --line: #293244;
+    --surface: #171e2b;
+    --background: #101522;
+    --shadow: 0 22px 70px rgba(0,0,0,.27), 0 3px 12px rgba(0,0,0,.18);
+  }
+}
