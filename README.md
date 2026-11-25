@@ -83,6 +83,17 @@ On macOS, install LibreOffice from the official LibreOffice download and set `LI
 
 Settings outside the documented bounds fall back to the defaults. Nginx currently accepts up to 26 MB of request data for the 25 MB file plus multipart overhead. If you change the file limit, update `client_max_body_size` in `nginx/conf.d/default.conf` and size the container temporary filesystem for the largest permitted request.
 
+## Deploy on Render
+
+The included `render.yaml` defines a Docker web service. Render builds the root `Dockerfile`, installs LibreOffice in the image, checks `/api/health`, and uses its assigned public URL for canonical metadata and upload-origin validation. The service runs directly behind Render's HTTPS proxy, so Docker Compose and Nginx are not part of this deployment.
+
+1. Push this repository to the `main` branch on GitHub.
+2. In Render, choose **New → Blueprint**, connect the repository, and apply the `render.yaml` configuration.
+3. Wait for the first image build and deploy. Render assigns a public `onrender.com` URL after creating the service.
+4. Add `SUPPORT_EMAIL` in the service environment only if you want an address shown on the Contact page.
+
+The Blueprint selects Render's Free web service plan so the first deployment does not incur compute charges. Free services can sleep after 15 idle minutes, may restart, and have limited memory; LibreOffice conversions of larger or complex files may need a paid instance with more memory. Temporary uploads are processed in the service's ephemeral filesystem and deleted after conversion; do not use it for persistent file storage.
+
 ## Docker Compose
 
 The Compose setup is the recommended production path. Nginx is the only service with a published port; the Next.js/LibreOffice container has no host port and runs as the unprivileged Node user. Conversion scratch space uses a size-limited temporary filesystem. The two containers share an internal Docker network with no outbound route.

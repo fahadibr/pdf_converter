@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: pdfforge
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: NEXT_PUBLIC_SITE_URL
+        fromService:
+          type: web
+          name: pdfforge
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: NEXT_PUBLIC_MAX_UPLOAD_MB
+        value: "25"
+      - key: RATE_LIMIT_WINDOW_MS
+        value: "900000"
+      - key: RATE_LIMIT_MAX
+        value: "10"
+      - key: CONVERSION_TIMEOUT_MS
+        value: "45000"
+      - key: LIBREOFFICE_BIN
+        value: soffice

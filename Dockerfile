@@ -17,7 +17,7 @@ RUN npm run build
 FROM node:22-bookworm-slim AS runner
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV PORT=3000
+ENV PORT=10000
 ENV HOSTNAME=0.0.0.0
 ENV LIBREOFFICE_BIN=soffice
 ENV HOME=/tmp
@@ -32,5 +32,5 @@ RUN apt-get update \
 COPY --from=builder --chown=node:node /app/.next/standalone ./
 COPY --from=builder --chown=node:node /app/.next/static ./.next/static
 USER node
-EXPOSE 3000
+EXPOSE 10000
 CMD ["node", "server.js"]
