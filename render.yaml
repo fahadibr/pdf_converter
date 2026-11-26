@@ -14,6 +14,8 @@ services:
           envVarKey: RENDER_EXTERNAL_URL
       - key: NEXT_PUBLIC_MAX_UPLOAD_MB
         value: "25"
+      - key: NEXT_PUBLIC_GTM_ID
+        value: GTM-WQ8TN36L
       - key: RATE_LIMIT_WINDOW_MS
         value: "900000"
       - key: RATE_LIMIT_MAX

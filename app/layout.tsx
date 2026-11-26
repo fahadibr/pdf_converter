@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { GoogleTagManager } from "@/components/layout/google-tag-manager";
 import { SiteHeader } from "@/components/layout/site-header";
 import "./globals.css";
 
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="en">
       <body className={inter.variable}>
+        <GoogleTagManager />
         <a className="skip-link" href="#main-content">Skip to content</a>
         <SiteHeader />
         {children}

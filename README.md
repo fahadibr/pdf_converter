@@ -74,6 +74,7 @@ On macOS, install LibreOffice from the official LibreOffice download and set `LI
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | `http://localhost:3000` | Canonical origin used for metadata, sitemap, and origin validation. Set it to the public HTTPS origin before building the production image. |
+| `NEXT_PUBLIC_GTM_ID` | unset | Optional Google Tag Manager container ID. Set to a valid `GTM-...` ID to load the container after page hydration. |
 | `NEXT_PUBLIC_MAX_UPLOAD_MB` | `25` | Shared UI/API upload limit. Supported range is 1–25 MB; increase the Nginx body limit too if changing it. This value is public. |
 | `RATE_LIMIT_WINDOW_MS` | `900000` | Per-process conversion window in milliseconds (1 minute–24 hours). |
 | `RATE_LIMIT_MAX` | `10` | Per-process conversion requests per IP in the window (1–100). |
@@ -85,7 +86,7 @@ Settings outside the documented bounds fall back to the defaults. Nginx currentl
 
 ## Deploy on Render
 
-The included `render.yaml` defines a Docker web service. Render builds the root `Dockerfile`, installs LibreOffice in the image, checks `/api/health`, and uses its assigned public URL for canonical metadata and upload-origin validation. The service runs directly behind Render's HTTPS proxy, so Docker Compose and Nginx are not part of this deployment.
+The included `render.yaml` defines a Docker web service. Render builds the root `Dockerfile`, installs LibreOffice in the image, checks `/api/health`, and uses its assigned public URL for canonical metadata and upload-origin validation. The Blueprint configures the Google Tag Manager container ID for site monitoring. The service runs directly behind Render's HTTPS proxy, so Docker Compose and Nginx are not part of this deployment.
 
 1. Push this repository to the `main` branch on GitHub.
 2. In Render, choose **New → Blueprint**, connect the repository, and apply the `render.yaml` configuration.
