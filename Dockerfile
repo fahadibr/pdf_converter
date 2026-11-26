@@ -25,8 +25,12 @@ ENV LIBREOFFICE_BIN=soffice
 ENV HOME=/tmp
 WORKDIR /app
 
+# Metric-compatible fonts reduce reflow for common Word documents that use Calibri or Cambria.
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends libreoffice-writer fonts-liberation fonts-noto-core fontconfig ca-certificates \
+  && apt-get install -y --no-install-recommends libreoffice-writer fonts-liberation fonts-noto-core fonts-crosextra-carlito fonts-crosextra-caladea fontconfig ca-certificates \
+  && fc-cache -f \
+  && test "$(fc-match -f '%{family[0]}' Calibri)" = "Carlito" \
+  && test "$(fc-match -f '%{family[0]}' Cambria)" = "Caladea" \
   && rm -rf /var/lib/apt/lists/* \
   && mkdir -p /app/.next/cache \
   && chown -R node:node /app
